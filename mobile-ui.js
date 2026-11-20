@@ -200,4 +200,10 @@
         select(0);
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    /* ---- 4) Mode offline (PWA): daftarkan service worker bila dilayani lewat http(s) ---- */
+    try {
+        if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+            window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { }); });
+        }
+    } catch (e) { }
 })();
